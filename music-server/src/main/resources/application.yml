@@ -1,0 +1,35 @@
+server:
+  port: 8888
+spring:
+  profiles:
+    active: prod
+  devtools:
+    restart:
+      enabled: false
+      additional-paths: src/main/java
+      exclude: WEB-INF/**
+  redis:
+    host: 124.223.27.13
+    port: 6379
+    database: 0
+    connect-timeout: 10000
+    lettuce:
+      pool:
+        max-active: 20
+        max-wait: -1
+        max-idle: 5
+        min-idle: 0
+  jackson:
+    date-format: yyyy-MM-dd HH:mm:ss
+    time-zone: GMT+8
+logging:
+  level:
+    org:
+      springframework:
+        boot:
+          autoconfigure: ERROR
+mybatis:
+#  configuration:
+#    map-underscore-to-camel-case: true
+  type-aliases-package: com.example.yin.model.domain
+  mapperLocations: classpath:mapper/*.xml

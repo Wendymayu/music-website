@@ -14,12 +14,26 @@
     <name>Yin-music</name>
     <description>music-website project for Spring Boot</description>
 
+<!--    <profiles>
+        <profile>
+            <id>dev</id>
+            <properties>
+                <db.url>jdbc:h2:~/blog</db.url>
+                <db.user>root</db.user>
+                <db.password>52wendyma</db.password>
+            </properties>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+        </profile>
+    </profiles>-->
+
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-        <java.version>1.8</java.version>
-        <maven.compiler.source>1.8</maven.compiler.source>
-        <maven.compiler.target>1.8</maven.compiler.target>
+        <java.version>1.11</java.version>
+        <maven.compiler.source>1.11</maven.compiler.source>
+        <maven.compiler.target>1.11</maven.compiler.target>
     </properties>
 
     <!--web启动 内嵌tomcat-->
@@ -49,6 +63,11 @@
             <version>8.0.16</version>
         </dependency>
 
+<!--        <dependency>
+            <groupId>com.h2database</groupId>
+            <artifactId>h2</artifactId>
+            <version>1.4.199</version>
+        </dependency>-->
         <!--mybatis用来和数据库进行交互-->
 
         <dependency>
@@ -124,6 +143,12 @@
             <version>2.11.1</version>
         </dependency>
 
+<!--        <dependency>
+            <groupId>org.flywaydb</groupId>
+            <artifactId>flyway-maven-plugin</artifactId>
+            <version>5.2.4</version>
+        </dependency>-->
+
     </dependencies>
 
     <!--    阿里云搭建的国内镜像http://maven.aliyun.com，跑起来速度很快，可以进行配置-->
@@ -157,6 +182,28 @@
                     <skipTests>true</skipTests>
                 </configuration>
             </plugin>
+<!--            <plugin>
+                <groupId>org.flywaydb</groupId>
+                <artifactId>flyway-maven-plugin</artifactId>
+                <version>5.2.4</version>
+                <configuration>
+                    <url>${db.url}</url>
+                    <user>${db.user}</user>
+                    <password>${db.password}</password>
+                </configuration>
+                <dependencies>
+                    <dependency>
+                        <groupId>mysql</groupId>
+                        <artifactId>mysql-connector-java</artifactId>
+                        <version>8.0.16</version>
+                    </dependency>
+                    <dependency>
+                        <groupId>com.h2database</groupId>
+                        <artifactId>h2</artifactId>
+                        <version>1.4.199</version>
+                    </dependency>
+                </dependencies>
+            </plugin>-->
         </plugins>
     </build>
 

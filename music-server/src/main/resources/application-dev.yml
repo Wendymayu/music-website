@@ -1,0 +1,6 @@
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://124.223.27.13:3306/tp_music?serverTimezone=Asia/Shanghai&useSSL=false
+    username: root
+    password: 52wendyma
