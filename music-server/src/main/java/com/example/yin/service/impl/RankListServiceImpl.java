@@ -2,7 +2,7 @@ package com.example.yin.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.example.yin.common.R;
+import com.example.yin.common.BaseResponse;
 import com.example.yin.mapper.RankListMapper;
 import com.example.yin.model.domain.RankList;
 import com.example.yin.model.request.RankListRequest;
@@ -22,27 +22,27 @@ public class RankListServiceImpl extends ServiceImpl<RankListMapper, RankList> i
     private RankListMapper rankMapper;
 
     @Override
-    public R addRank(RankListRequest rankListAddRequest) {
+    public BaseResponse addRank(RankListRequest rankListAddRequest) {
         RankList rankList = new RankList();
         BeanUtils.copyProperties(rankListAddRequest, rankList);
         if (rankMapper.insert(rankList) > 0) {
-            return R.success("评价成功");
+            return BaseResponse.success("评价成功");
         } else {
-            return R.error("评价失败");
+            return BaseResponse.error("评价失败");
         }
     }
 
     @Override
-    public R rankOfSongListId(Long songListId) {
+    public BaseResponse rankOfSongListId(Long songListId) {
         // 评分总人数如果为 0，则返回0；否则返回计算出的结果
         QueryWrapper<RankList> queryWrapper = new QueryWrapper<>();
         queryWrapper.eq("song_list_id",songListId);
         Long rankNum = rankMapper.selectCount(queryWrapper);
-        return R.success(null, (rankNum <= 0) ? 0 : rankMapper.selectScoreSum(songListId) / rankNum);
+        return BaseResponse.success(null, (rankNum <= 0) ? 0 : rankMapper.selectScoreSum(songListId) / rankNum);
     }
 
     @Override
-    public R getUserRank(Long consumerId, Long songListId) {
-        return R.success(null, rankMapper.selectUserRank(consumerId, songListId));
+    public BaseResponse getUserRank(Long consumerId, Long songListId) {
+        return BaseResponse.success(null, rankMapper.selectUserRank(consumerId, songListId));
     }
 }

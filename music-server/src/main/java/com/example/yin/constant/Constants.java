@@ -5,6 +5,7 @@ public class Constants {
 //    public static String ASSETS_PATH = System.getProperty("user.dir");
     public static String ASSETS_PATH = "D://java_project/github-project-refactor/music-website/music-server";
 
+    // addResourceLocations从windows本地读文件，路径前要加 file:
     public static String AVATOR_IMAGES_PATH = "file:" + ASSETS_PATH + "/img/avatorImages/";
     public static String SONGLIST_PIC_PATH = "file:" + ASSETS_PATH + "/img/songListPic/";
     public static String SONG_PIC_PATH = "file:" + ASSETS_PATH + "/img/songPic/";
