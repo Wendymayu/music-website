@@ -4,7 +4,7 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.example.yin.common.BaseResponse;
 import com.example.yin.mapper.SingerMapper;
-import com.example.yin.model.domain.Singer;
+import com.example.yin.model.domain.SingerPo;
 import com.example.yin.model.request.SingerRequest;
 import com.example.yin.service.SingerService;
 import org.springframework.beans.BeanUtils;
@@ -16,16 +16,16 @@ import java.io.File;
 import java.io.IOException;
 
 @Service
-public class SingerServiceImpl extends ServiceImpl<SingerMapper, Singer> implements SingerService {
+public class SingerServiceImpl extends ServiceImpl<SingerMapper, SingerPo> implements SingerService {
 
     @Autowired
     private SingerMapper singerMapper;
 
     @Override
     public BaseResponse updateSingerMsg(SingerRequest updateSingerRequest) {
-        Singer singer = new Singer();
-        BeanUtils.copyProperties(updateSingerRequest, singer);
-        if (singerMapper.updateById(singer) > 0) {
+        SingerPo singerPo = new SingerPo();
+        BeanUtils.copyProperties(updateSingerRequest, singerPo);
+        if (singerMapper.updateById(singerPo) > 0) {
             return BaseResponse.success("修改成功");
         } else {
             return BaseResponse.error("修改失败");
@@ -49,10 +49,10 @@ public class SingerServiceImpl extends ServiceImpl<SingerMapper, Singer> impleme
         } catch (IOException e) {
             return BaseResponse.fatal("上传失败" + e.getMessage());
         }
-        Singer singer = new Singer();
-        singer.setId(id);
-        singer.setPic(imgPath);
-        if (singerMapper.updateById(singer) > 0) {
+        SingerPo singerPo = new SingerPo();
+        singerPo.setId(id);
+        singerPo.setPic(imgPath);
+        if (singerMapper.updateById(singerPo) > 0) {
             return BaseResponse.success("上传成功", imgPath);
         } else {
             return BaseResponse.error("上传失败");
@@ -75,11 +75,11 @@ public class SingerServiceImpl extends ServiceImpl<SingerMapper, Singer> impleme
 
     @Override
     public BaseResponse addSinger(SingerRequest addSingerRequest) {
-        Singer singer = new Singer();
-        BeanUtils.copyProperties(addSingerRequest, singer);
+        SingerPo singerPo = new SingerPo();
+        BeanUtils.copyProperties(addSingerRequest, singerPo);
         String pic = "/img/avatorImages/user.jpg";
-        singer.setPic(pic);
-        if (singerMapper.insert(singer) > 0) {
+        singerPo.setPic(pic);
+        if (singerMapper.insert(singerPo) > 0) {
             return BaseResponse.success("添加成功");
         } else {
             return BaseResponse.error("添加失败");
@@ -88,14 +88,14 @@ public class SingerServiceImpl extends ServiceImpl<SingerMapper, Singer> impleme
 
     @Override
     public BaseResponse singerOfName(String name) {
-        QueryWrapper<Singer> queryWrapper = new QueryWrapper<>();
+        QueryWrapper<SingerPo> queryWrapper = new QueryWrapper<>();
         queryWrapper.like("name", name);
         return BaseResponse.success(null, singerMapper.selectList(queryWrapper));
     }
 
     @Override
     public BaseResponse singerOfSex(Integer sex) {
-        QueryWrapper<Singer> queryWrapper = new QueryWrapper<>();
+        QueryWrapper<SingerPo> queryWrapper = new QueryWrapper<>();
         queryWrapper.like("sex", sex);
         return BaseResponse.success(null, singerMapper.selectList(queryWrapper));
     }

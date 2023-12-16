@@ -58,7 +58,7 @@ const HttpManager = {
   // 删除评论
   deleteComment: (id) => get(`comment/delete?id=${id}`),
   // 点赞
-  setSupport: ({id,up}) => post(`comment/like`, {id,up}),
+  setSupport: ({id,up}) => post(`upvote/comment/like`, {id,up}),
   // 返回所有评论
   getAllComment: (type, id) => {
     let url = "";
@@ -82,11 +82,11 @@ const HttpManager = {
 
   //======================> 点赞api的优化 避免有些是重复的点赞！新增数据表了得
 
-  testAlreadySupport:({commentId,userId}) => post(`userSupport/test`, {commentId,userId}),
+  testAlreadySupport:({commentId,userId}) => post(`upvote/test`, {commentId,userId}),
 
-  deleteUserSupport:({commentId,userId}) => post(`userSupport/delete`, {commentId,userId}),
+  deleteUserSupport:({commentId,userId}) => post(`upvote/delete`, {commentId,userId}),
 
-  insertUserSupport:({commentId,userId}) => post(`userSupport/insert`, {commentId,userId}),
+  insertUserSupport:({commentId,userId}) => post(`upvote/insert`, {commentId,userId}),
 
   //获取所有的海报
   getBannerList: () => get("banner/getAllBanner")

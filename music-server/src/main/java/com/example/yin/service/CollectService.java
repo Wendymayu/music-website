@@ -2,10 +2,10 @@ package com.example.yin.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.example.yin.common.BaseResponse;
-import com.example.yin.model.domain.Collect;
+import com.example.yin.model.domain.CollectPo;
 import com.example.yin.model.request.CollectRequest;
 
-public interface CollectService extends IService<Collect> {
+public interface CollectService extends IService<CollectPo> {
 
     BaseResponse addCollection(CollectRequest addCollectRequest);
 

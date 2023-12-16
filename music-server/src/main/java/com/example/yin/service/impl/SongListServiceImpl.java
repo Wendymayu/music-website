@@ -4,7 +4,7 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.example.yin.common.BaseResponse;
 import com.example.yin.mapper.SongListMapper;
-import com.example.yin.model.domain.SongList;
+import com.example.yin.model.domain.SongListPo;
 import com.example.yin.model.request.SongListRequest;
 import com.example.yin.service.SongListService;
 import org.springframework.beans.BeanUtils;
@@ -17,16 +17,16 @@ import java.io.File;
 import java.io.IOException;
 
 @Service
-public class SongListServiceImpl extends ServiceImpl<SongListMapper, SongList> implements SongListService {
+public class SongListServiceImpl extends ServiceImpl<SongListMapper, SongListPo> implements SongListService {
 
     @Autowired
     private SongListMapper songListMapper;
 
     @Override
     public BaseResponse updateSongListMsg(SongListRequest updateSongListRequest) {
-        SongList songList = new SongList();
-        BeanUtils.copyProperties(updateSongListRequest, songList);
-        if (songListMapper.updateById(songList) > 0) {
+        SongListPo songListPo = new SongListPo();
+        BeanUtils.copyProperties(updateSongListRequest, songListPo);
+        if (songListMapper.updateById(songListPo) > 0) {
             return BaseResponse.success("修改成功");
         } else {
             return BaseResponse.error("修改失败");
@@ -49,25 +49,25 @@ public class SongListServiceImpl extends ServiceImpl<SongListMapper, SongList> i
 
     @Override
     public BaseResponse likeTitle(String title) {
-        QueryWrapper<SongList> queryWrapper = new QueryWrapper<>();
+        QueryWrapper<SongListPo> queryWrapper = new QueryWrapper<>();
         queryWrapper.like("title",title);
         return BaseResponse.success(null, songListMapper.selectList(queryWrapper));
     }
 
     @Override
     public BaseResponse likeStyle(String style) {
-        QueryWrapper<SongList> queryWrapper = new QueryWrapper<>();
+        QueryWrapper<SongListPo> queryWrapper = new QueryWrapper<>();
         queryWrapper.like("style",style);
         return BaseResponse.success(null, songListMapper.selectList(queryWrapper));
     }
 
     @Override
     public BaseResponse addSongList(SongListRequest addSongListRequest) {
-        SongList songList = new SongList();
-        BeanUtils.copyProperties(addSongListRequest, songList);
+        SongListPo songListPo = new SongListPo();
+        BeanUtils.copyProperties(addSongListRequest, songListPo);
         String pic = "/img/songListPic/123.jpg";
-        songList.setPic(pic);
-        if (songListMapper.insert(songList) > 0) {
+        songListPo.setPic(pic);
+        if (songListMapper.insert(songListPo) > 0) {
             return BaseResponse.success("添加成功");
         } else {
             return BaseResponse.error("添加失败");
@@ -89,10 +89,10 @@ public class SongListServiceImpl extends ServiceImpl<SongListMapper, SongList> i
         } catch (IOException e) {
             return BaseResponse.fatal("上传失败" + e.getMessage());
         }
-        SongList songList = new SongList();
-        songList.setId(id);
-        songList.setPic(imgPath);
-        if (songListMapper.updateById(songList) > 0) {
+        SongListPo songListPo = new SongListPo();
+        songListPo.setId(id);
+        songListPo.setPic(imgPath);
+        if (songListMapper.updateById(songListPo) > 0) {
             return BaseResponse.success("上传成功", imgPath);
         } else {
             return BaseResponse.error("上传失败");

@@ -4,7 +4,7 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.example.yin.common.BaseResponse;
 import com.example.yin.mapper.SongMapper;
-import com.example.yin.model.domain.Song;
+import com.example.yin.model.domain.SongPo;
 import com.example.yin.model.request.SongRequest;
 import com.example.yin.service.SongService;
 import org.springframework.beans.BeanUtils;
@@ -17,7 +17,7 @@ import java.io.IOException;
 import java.util.Date;
 
 @Service
-public class SongServiceImpl extends ServiceImpl<SongMapper, Song> implements SongService {
+public class SongServiceImpl extends ServiceImpl<SongMapper, SongPo> implements SongService {
 
     @Autowired
     private SongMapper songMapper;
@@ -29,11 +29,11 @@ public class SongServiceImpl extends ServiceImpl<SongMapper, Song> implements So
 
     @Override
     public BaseResponse addSong(SongRequest addSongRequest, MultipartFile mpfile) {
-        Song song = new Song();
-        BeanUtils.copyProperties(addSongRequest, song);
+        SongPo songPo = new SongPo();
+        BeanUtils.copyProperties(addSongRequest, songPo);
         String pic = "/img/songPic/tubiao.jpg";
         String fileName = mpfile.getOriginalFilename();
-        String filePath = System.getProperty("user.dir") + System.getProperty("file.separator") + "song";
+        String filePath = System.getProperty("user.dir") + System.getProperty("file.separator") + "songPo";
         File file1 = new File(filePath);
         if (!file1.exists()) {
             if (!file1.mkdir()) {
@@ -41,17 +41,17 @@ public class SongServiceImpl extends ServiceImpl<SongMapper, Song> implements So
             }
         }
         File dest = new File(filePath + System.getProperty("file.separator") + fileName);
-        String storeUrlPath = "/song/" + fileName;
+        String storeUrlPath = "/songPo/" + fileName;
         try {
             mpfile.transferTo(dest);
         } catch (IOException e) {
             return BaseResponse.fatal("上传失败" + e.getMessage());
         }
-        song.setCreateTime(new Date());
-        song.setUpdateTime(new Date());
-        song.setPic(pic);
-        song.setUrl(storeUrlPath);
-        if (songMapper.insert(song) > 0) {
+        songPo.setCreateTime(new Date());
+        songPo.setUpdateTime(new Date());
+        songPo.setPic(pic);
+        songPo.setUrl(storeUrlPath);
+        if (songMapper.insert(songPo) > 0) {
             return BaseResponse.success("上传成功", storeUrlPath);
         } else {
             return BaseResponse.error("上传失败");
@@ -60,9 +60,9 @@ public class SongServiceImpl extends ServiceImpl<SongMapper, Song> implements So
 
     @Override
     public BaseResponse updateSongMsg(SongRequest updateSongRequest) {
-        Song song = new Song();
-        BeanUtils.copyProperties(updateSongRequest, song);
-        if (songMapper.updateById(song) > 0) {
+        SongPo songPo = new SongPo();
+        BeanUtils.copyProperties(updateSongRequest, songPo);
+        if (songMapper.updateById(songPo) > 0) {
             return BaseResponse.success("修改成功");
         } else {
             return BaseResponse.error("修改失败");
@@ -72,7 +72,7 @@ public class SongServiceImpl extends ServiceImpl<SongMapper, Song> implements So
     @Override
     public BaseResponse updateSongUrl(MultipartFile urlFile, int id) {
         String fileName = urlFile.getOriginalFilename();
-        String filePath = System.getProperty("user.dir") + System.getProperty("file.separator") + "song";
+        String filePath = System.getProperty("user.dir") + System.getProperty("file.separator") + "songPo";
         File file1 = new File(filePath);
         if (!file1.exists()) {
             if (!file1.mkdir()) {
@@ -80,16 +80,16 @@ public class SongServiceImpl extends ServiceImpl<SongMapper, Song> implements So
             }
         }
         File dest = new File(filePath + System.getProperty("file.separator") + fileName);
-        String storeUrlPath = "/song/" + fileName;
+        String storeUrlPath = "/songPo/" + fileName;
         try {
             urlFile.transferTo(dest);
         } catch (IOException e) {
             return BaseResponse.fatal("更新失败" + e.getMessage());
         }
-        Song song = new Song();
-        song.setId(id);
-        song.setUrl(storeUrlPath);
-        if (songMapper.updateById(song) > 0) {
+        SongPo songPo = new SongPo();
+        songPo.setId(id);
+        songPo.setUrl(storeUrlPath);
+        if (songMapper.updateById(songPo) > 0) {
             return BaseResponse.success("更新成功", storeUrlPath);
         } else {
             return BaseResponse.error("更新失败");
@@ -114,10 +114,10 @@ public class SongServiceImpl extends ServiceImpl<SongMapper, Song> implements So
         } catch (IOException e) {
             return BaseResponse.fatal("上传失败" + e.getMessage());
         }
-        Song song = new Song();
-        song.setId(id);
-        song.setPic(storeUrlPath);
-        if (songMapper.updateById(song) > 0) {
+        SongPo songPo = new SongPo();
+        songPo.setId(id);
+        songPo.setPic(storeUrlPath);
+        if (songMapper.updateById(songPo) > 0) {
             return BaseResponse.success("上传成功", storeUrlPath);
         } else {
             return BaseResponse.error("上传失败");
@@ -135,21 +135,21 @@ public class SongServiceImpl extends ServiceImpl<SongMapper, Song> implements So
 
     @Override
     public BaseResponse songOfSingerId(Integer singerId) {
-        QueryWrapper<Song> queryWrapper = new QueryWrapper<>();
+        QueryWrapper<SongPo> queryWrapper = new QueryWrapper<>();
         queryWrapper.eq("singer_id",singerId);
         return BaseResponse.success(null, songMapper.selectList(queryWrapper));
     }
 
     @Override
     public BaseResponse songOfId(Integer id) {
-        QueryWrapper<Song> queryWrapper = new QueryWrapper<>();
+        QueryWrapper<SongPo> queryWrapper = new QueryWrapper<>();
         queryWrapper.eq("id",id);
         return BaseResponse.success(null, songMapper.selectList(queryWrapper));
     }
 
     @Override
     public BaseResponse songOfSingerName(String name) {
-        QueryWrapper<Song> queryWrapper = new QueryWrapper<>();
+        QueryWrapper<SongPo> queryWrapper = new QueryWrapper<>();
         queryWrapper.like("name",name);
         return BaseResponse.success(null, songMapper.selectList(queryWrapper));
     }

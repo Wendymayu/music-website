@@ -9,7 +9,7 @@ import java.util.Date;
  * @Time : 2022/6/6 13:11
  **/
 @Data
-public class CollectRequest {
+public class    CollectRequest {
     private Integer id;
 
     private Integer userId;

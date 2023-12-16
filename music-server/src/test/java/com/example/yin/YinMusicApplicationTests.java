@@ -1,6 +1,6 @@
 package com.example.yin;
 
-import com.example.yin.service.impl.ConsumerServiceImpl;
+import com.example.yin.service.impl.UserServiceImpl;
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,7 +15,7 @@ public class YinMusicApplicationTests {
     // private SongServiceImpl songService;
     // private SingerServiceImpl singerService;
     // private SongListServiceImpl songListService;
-    private ConsumerServiceImpl consumerService;
+    private UserServiceImpl consumerService;
     // private RankListServiceImpl rankListService;
 
     // @Test
@@ -36,7 +36,7 @@ public class YinMusicApplicationTests {
     // 歌曲
     // @Test
     // public void songTest(){
-    // Song song = new Song();
+    // SongPo song = new SongPo();
     // song.setName("Sanna Nielsen-Undo");
     // song.setPic("/img/songPic/1775711278864263.jpg");
     // song.setSingerId(42);
@@ -51,7 +51,7 @@ public class YinMusicApplicationTests {
     // //歌手
     // @Test
     // public void singerTest(){
-    // Singer singer = new Singer();
+    // SingerPo singer = new SingerPo();
     // singer.setName("Álvaro Soler");
     // singer.setSex(new Byte("1"));
     // singer.setPic("/img/singerPic/soler.jpg");
@@ -71,7 +71,7 @@ public class YinMusicApplicationTests {
     // @Test
     // public void songListTest(){
     //
-    // SongList songList = new SongList();
+    // SongListPo songList = new SongListPo();
     // songList.setTitle("国风传统器乐赏~~♪");
     // songList.setPic("/img/songListPic/19169985230816413.jpg");
     // songList.setIntroduction(" 都是自己很喜欢的吉他指弹");

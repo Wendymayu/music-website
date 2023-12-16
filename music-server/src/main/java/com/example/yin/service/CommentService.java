@@ -2,10 +2,10 @@ package com.example.yin.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.example.yin.common.BaseResponse;
-import com.example.yin.model.domain.Comment;
+import com.example.yin.model.domain.CommentPo;
 import com.example.yin.model.request.CommentRequest;
 
-public interface CommentService extends IService<Comment> {
+public interface CommentService extends IService<CommentPo> {
 
     BaseResponse addComment(CommentRequest addCommentRequest);
 

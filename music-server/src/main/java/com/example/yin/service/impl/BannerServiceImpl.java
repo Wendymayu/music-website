@@ -2,7 +2,7 @@ package com.example.yin.service.impl;
 
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.example.yin.mapper.BannerMapper;
-import com.example.yin.model.domain.Banner;
+import com.example.yin.model.domain.BannerPo;
 import com.example.yin.service.BannerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.Cacheable;
@@ -16,7 +16,7 @@ import java.util.List;
  * @createDate 2022-06-13 13:13:42
  */
 @Service
-public class BannerServiceImpl extends ServiceImpl<BannerMapper, Banner>
+public class BannerServiceImpl extends ServiceImpl<BannerMapper, BannerPo>
         implements BannerService {
 
     @Autowired
@@ -24,7 +24,7 @@ public class BannerServiceImpl extends ServiceImpl<BannerMapper, Banner>
 
     @Cacheable(value = "banner", key = "'list'")  //放在缓存中 redis 是以key-value进行存储的
     @Override
-    public List<Banner> getAllBanner() {
+    public List<BannerPo> getAllBanner() {
         System.out.println("没有走缓存");
         return bannerMapper.selectList(null);
     }
